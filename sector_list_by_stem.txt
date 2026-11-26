@@ -1,0 +1,55 @@
+1:sector:Manufacturing
+11:sector:e-commerce
+12:sector:Construction Management
+13:sector:Airports, Air Services, Transportation
+15:sector:automotive
+16:sector:logistics, shipping, transportation
+17:sector:Manufacturing
+18:sector:null
+19:sector:Gambling/Gaming, Finance
+2:sector:Government, Emergency Services
+20:sector:furniture, retail, manufacturing
+21:sector:travel, hospitality, transportation, e-commerce
+22:sector:Manufacturing
+23:sector:Pharmaceuticals, Manufacturing
+24:sector:Education
+25:sector:Retail, Consumer Electronics, Home Appliances
+26:sector:dating, software
+27:sector:null
+28:sector:Energy, Oil & Gas
+29:sector:Manufacturing, Business Services
+3:sector:government, regional government
+30:sector:Education
+31:sector:Legal Services
+32:sector:Commercial
+33:sector:Business Services
+34:sector:Real Estate
+35:sector:Manufacturing
+36:sector:Manufacturing, Food & Beverage
+37:sector:Media, Internet
+38:sector:Hospitality, Construction
+39:sector:Healthcare, Dental
+4:sector:technology, AI, cloud_services
+40:sector:Government
+41:sector:Insurance, Hospitals & Clinics, Healthcare
+42:sector:Retail
+43:sector:Oil & Gas
+44:sector:Consumer Services
+45:sector:Manufacturing, Distribution
+46:sector:cybersecurity, data centers, managed IT
+47:sector:Legal
+48:sector:Manufacturing
+49:sector:IT Services
+5:sector:Retail
+50:sector:Telecommunication
+50_redacted:sector:Telecommunications
+51:sector:Software, Content & Collaboration Software
+52:sector:null
+53:sector:Logistics, Business Services
+54:sector:IT
+55:sector:Food Production, Manufacturing
+56:sector:Financial Services
+6:sector:Manufacturing
+7:sector:Manufacturing
+8:sector:e-commerce, retail
+9:sector:business_services, associations

@@ -1,0 +1,18 @@
+{
+    "country": "",
+    "sector": "",
+    "revenue_values": [
+        {
+            "value_usd": 352000000,
+            "year": "2013",
+            "raw": "US$352 million"
+        },
+        {
+            "value_usd": null,
+            "year": "2024",
+            "raw": "BRL 1.1 billion"
+        }
+    ],
+    "employees": 1300,
+    "headquarters": "Country: Brazil"
+}

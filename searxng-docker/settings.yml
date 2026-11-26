@@ -1,0 +1,15 @@
+# SearXNG settings — JSON enabled for company_enrich API
+use_default_settings: true
+
+server:
+  secret_key: "change-me-in-production"
+  limiter: false
+  image_proxy: true
+
+search:
+  formats:
+    - html
+    - json
+
+redis:
+  url: redis://redis:6379/0

@@ -1,0 +1,1181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dark Web Listing Schema",
+  "version": "5.3",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "source_platform": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "BreachForums",
+            "XSS.is",
+            "Exploit.in",
+            "Telegram",
+            "Twitter/X",
+            "Atomsilo Leak Site"
+          ]
+        },
+        "platform_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "forum",
+            "telegram",
+            "twitter",
+            "leak_site",
+            "other"
+          ]
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "screenshot_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "collected_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "collected_at"
+      ]
+    },
+    "listing": {
+      "type": "object",
+      "description": "Universal fields only — applicable across all platforms and listing types.",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "listing_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "fixed_price",
+            "auction",
+            "negotiable",
+            "ransom_demand"
+          ]
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "initial_access",
+            "data_breach",
+            "ransomware",
+            "malware",
+            "credentials",
+            "other"
+          ]
+        },
+        "posted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    },
+    "seller": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Null for ransomware leak site listings where no individual seller exists.",
+      "properties": {
+        "username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "platform_context": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "platform_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "examples": [
+                "forum",
+                "telegram",
+                "twitter",
+                "leak_site",
+                "other"
+              ]
+            },
+            "forum": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Populated only for forum listings. Set to null for all other platforms.",
+              "properties": {
+                "forum_rank": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "examples": [
+                    "GOD",
+                    "MVP User",
+                    "Member",
+                    "megabyte",
+                    "byte",
+                    "Final Boss"
+                  ]
+                },
+                "is_breached": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "True only if account explicitly shows a Breached/compromised tag."
+                },
+                "reputation_score": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "post_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "thread_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "joined_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "registration_type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "examples": [
+                    "Paid registration",
+                    "Free"
+                  ]
+                },
+                "deposit_btc": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "autogarant_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of self-guaranteed transactions completed without escrow."
+                },
+                "edit_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Number of times the listing post was edited."
+                },
+                "last_edited_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                }
+              }
+            },
+            "telegram": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Populated only for Telegram listings.",
+              "properties": {
+                "channel_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "channel_subscriber_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "channel_created_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "is_verified_channel": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "linked_forum_username": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "twitter": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Populated only for Twitter/X listings.",
+              "properties": {
+                "handle": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "follower_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "account_created_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "is_verified": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "linked_forum_username": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "leak_site": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Populated only for ransomware leak site listings.",
+              "properties": {
+                "group_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "site_label": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "victim_domain_shown": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Domain as shown — may be redacted e.g. BANK.COM"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "company_name": {
+          "type": "object",
+          "description": "Company name as stated in the listing. Extraction only — never infer or guess.",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Exact proper name only if a specific named entity is stated (e.g. 'Ford', 'Saudi Airlines', 'Garanti Bank'). null if the listing uses a generic description like 'a Turkey University', 'a large bank in Asia', 'Manufacturing company'."
+            },
+            "is_named": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "description": "true = a specific proper name is stated. false = only a generic description. null = unclear."
+            },
+            "raw": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Verbatim target description from listing e.g. 'Turkey University.', 'Morocco ~$20 Million/DA', 'A large bank in Asia'."
+            },
+            "mentioned": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": { "type": "string" },
+              "description": "When multiple companies are named (e.g. 'Mint Mobile & Ultra Mobile'), list each: [\"Mint Mobile\", \"Ultra Mobile\"]. null if single or generic."
+            },
+            "parent_hint": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Parent company when stated or strongly implied (e.g. 'T-Mobile' for Mint Mobile & Ultra Mobile). null if unknown."
+            }
+          }
+        },
+        "raw": {
+          "type": "object",
+          "description": "Verbatim strings — never normalize, never discard, preserve all symbols.",
+          "properties": {
+            "revenue_text": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Verbatim revenue/value string. Preserve symbols like ~, +, kk, M."
+            },
+            "technology_text": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "All technology-related verbatim strings: AV, EDR, VPN, firewall, RDP, OS, device types. This is the source for security_stack."
+            },
+            "location_text": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Verbatim location string e.g. 'Morocco', 'Geo = SA'."
+            },
+            "misc": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "All other target-related information: sector, access type, operational details, anything not fitting above fields. Do not leave null if there is relevant information in the listing."
+            }
+          }
+        },
+        "interpreted": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Full country name in English (e.g. 'Switzerland', 'Turkey', 'Saudi Arabia'). Never use ISO codes."
+            },
+            "sector": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "company_size_indicators": {
+              "type": "object",
+              "description": "Size/scale signals. Each field: value + raw + source. raw preserves exact string including symbols.",
+              "properties": {
+                "estimated_revenue_usd": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "year": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "description": "Year that the stated revenue figure refers to (e.g. 2024). null if not explicitly stated."
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "examples": [
+                        "seller_claim",
+                        "panel_screenshot",
+                        "inferred"
+                      ]
+                    }
+                  }
+                },
+                "estimated_value_usd": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "pc_count": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "network_count": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "domain_controller_count": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "client_count": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "payment_volume": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "currency": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "period": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "raw": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "description_free_text": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Plain English summary of all target information extracted from the listing. Always populate — synthesize sector, access type, technology, size signals, geography."
+            },
+            "ambiguities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Uncertain interpretations, ambiguous abbreviations, unclear values. Always populate if any ambiguity exists."
+            }
+          }
+        }
+      }
+    },
+    "security_stack": {
+      "type": "array",
+      "description": "Every technology signal in the listing. Source: target.raw.technology_text and anywhere else in the listing.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vendor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "antivirus",
+              "edr",
+              "firewall",
+              "vpn",
+              "siem",
+              "mfa",
+              "waf",
+              "backup",
+              "email_security",
+              "dlp",
+              "rdp",
+              "other"
+            ]
+          },
+          "raw": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Exact string from listing."
+          },
+          "presence": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "true = present, false = explicitly absent, null = unknown."
+          },
+          "confidence": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "reasoning": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "access": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Null for pure data breach or ransomware listings.",
+      "properties": {
+        "raw": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Verbatim access description from listing."
+        },
+        "interpreted": {
+          "type": "object",
+          "properties": {
+            "os": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "device_type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "permission_level": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "e.g. Domain Admin, Root, Admin Panel, Domain User."
+            },
+            "access_type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "access_status": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "target_count": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Number of compromised machines in bulk access listings."
+            },
+            "shell_type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "ambiguities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "data": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Null for pure access listings.",
+      "properties": {
+        "raw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "interpreted": {
+          "type": "object",
+          "properties": {
+            "dataset_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "record_count": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "data_size": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "value": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "examples": [
+                    "TB",
+                    "GB",
+                    "MB"
+                  ]
+                }
+              }
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "exclusivity": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "examples": [
+                "sold_once",
+                "multiple_buyers",
+                "unknown"
+              ]
+            },
+            "sample_evidence": {
+              "type": "object",
+              "properties": {
+                "has_sample": {
+                  "type": "boolean"
+                },
+                "types": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "examples": [
+                    [
+                      "url",
+                      "embedded_screenshot",
+                      "panel_screenshot",
+                      "text_snippet",
+                      "none"
+                    ]
+                  ]
+                },
+                "urls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "embedded_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "contains_panel_screenshot": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "fetch_status": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "examples": [
+                    "pending",
+                    "success",
+                    "failed",
+                    "not_applicable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "pricing": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Null for ransomware listings.",
+      "properties": {
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "fixed",
+            "auction",
+            "negotiable"
+          ]
+        },
+        "fixed_price_usd": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "auction": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "start_usd": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "step_usd": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "blitz_usd": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "is_negotiable": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "payment_methods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "escrow_required": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "ransomware": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Null for all non-ransomware listings.",
+      "properties": {
+        "group_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "demand_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "single_extortion",
+            "double_extortion",
+            "triple_extortion"
+          ]
+        },
+        "ransom_amount_usd": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "publication_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "examples": [
+            "pending_leak",
+            "partially_leaked",
+            "fully_leaked"
+          ]
+        },
+        "countdown_remaining": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Countdown string verbatim e.g. '2d 9h 26m 41s'."
+        },
+        "leak_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "contact": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "telegram": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tox_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "session_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jabber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "analyst_notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Always populate. Notable signals, abbreviations resolved, inconsistencies, OSINT leads, anything worth flagging."
+    },
+    "search_payload": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Normalized search-ready summary derived from the listing. Populated at parse time. Used as input for the company identification stage.",
+      "properties": {
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Full country name in English, e.g. 'Morocco', 'Turkey', 'Saudi Arabia'. Not ISO code."
+        },
+        "region": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "City, state or region if mentioned, e.g. 'Istanbul', 'Riyadh'."
+        },
+        "sector": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Sector list copied from target.interpreted.sector."
+        },
+        "revenue_usd_approx": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Best numeric estimate of revenue in USD. null if not present or too ambiguous."
+        },
+        "revenue_year_approx": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Year associated with search_payload.revenue_usd_approx (e.g. 2024). null if not explicitly stated."
+        },
+        "employee_count_approx": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Best estimate of employee/PC count. null if not available."
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "2-6 search keywords that best describe the target: sector, country, size signal, access type. Used for open-source search queries."
+        },
+        "is_named": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Copied from target.company_name.is_named."
+        },
+        "company_name_hint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Copied from target.company_name.value if is_named is true. null otherwise."
+        },
+        "parent_hint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Copied from target.company_name.parent_hint. Used for enrichment search when multiple subsidiaries."
+        },
+        "raw_description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Copied from target.company_name.raw."
+        }
+      }
+    }
+  },
+  "required": [
+    "meta",
+    "listing"
+  ]
+}

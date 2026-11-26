@@ -1,0 +1,132 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Ransomware Victim Identification Pipeline — Configuration
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# This file controls all settings for the pipeline stages:
+#   Stage 1 — post_parser.py     : Parse dark web listings into structured JSON
+#   Stage 2 — company_enrich.py  : Enrich with web search (SearXNG / Gemini)
+#   Stage 3 — e2e_pipeline.py    : LLM-based identification via Borda count
+#   Stage 4 — osint_stage.py     : OSINT enrichment (Shodan, Ransomware.live)
+#
+# ══════════════════════════════════════════════════════════════════════════════
+
+
+# ── PROVIDER & MODEL ──────────────────────────────────────────────────────────
+# Active LLM provider used for parsing (Stage 1) and enrichment (Stage 2).
+# Options: anthropic | openai | gemini | ollama | openrouter | groq
+provider: openrouter
+
+
+# Model to use per provider. If left blank, a hardcoded default is used (GPT 4.1).
+# For the Borda identification stage (Stage 3), the openrouter model is used.
+#
+# ── THESIS FINDING ────────────────────────────────────────────────────────────
+# The following models were empirically evaluated as part of this thesis research.
+# Experiments were run on a labeled dataset of real ransomware group listings,
+# using Borda count aggregation over 8 LLM iterations per listing.
+# Results ranked by victim identification accuracy:
+#
+#   1. openai/gpt-4.1           — best overall accuracy
+#   2. anthropic/claude-sonnet  — close second, strong reasoning
+#   3. google/gemini-2.5-flash  — best cost-performance ratio
+#
+# To reproduce thesis results: set provider to openrouter and change the
+# openrouter model below to one of the models listed above.
+# ─────────────────────────────────────────────────────────────────────────────
+
+models:
+  anthropic:  claude-opus-4-6
+  openai:     gpt-4o
+  gemini:     gemini-2.5-flash-lite
+  ollama:     gemma4
+  openrouter: gemini-2.5-flash-lite
+  groq:       llama-3.1-8b-instant
+
+
+# ── WEB SEARCH (Stage 2 enrichment) ──────────────────────────────────────────
+# Backend(s) used for company web search enrichment.
+# Options:
+#   searxng         — self-hosted, privacy-preserving (recommended)
+#   gemini          — uses Gemini's built-in Google Search tool
+#   ollama          — Ollama cloud web search (free tier)
+#   all             — use all available backends
+#   searxng,gemini  — comma-separated combination
+search_backend: searxng
+
+# SearXNG instance URL (must be running via Docker before enrichment).
+# Alternatively, set the SEARXNG_BASE_URL environment variable.
+# To start: cd searxng-docker && docker compose up -d
+searxng_base_url: "http://localhost:8888"
+
+# Number of web search results to fetch per query.
+searxng_max_results: 15
+
+
+# ── PARSING SETTINGS (Stage 1) ────────────────────────────────────────────────
+# JSON schema file used as the parsing template sent to the LLM.
+# Must be in the same directory as post_parser.py.
+schema_file: structure.json
+
+
+# ── REVENUE EXTRACTION SETTINGS (Stage 2) ─────────────────────────────────────
+# If true, skip LLM-based revenue extraction and use regex only.
+# Useful when your LLM quota is exhausted.
+use_regex_only: false
+
+# If true, also merge regex-detected revenue values (explicit M/B patterns)
+# into the LLM-extracted revenue_values list after extraction.
+# Recommended: false — keeps output clean and avoids noisy duplicates.
+revenue_merge_regex: false
+
+# If the ratio between max and min revenue estimates exceeds this threshold,
+# the values are considered contradictory and no single revenue_usd is emitted.
+revenue_contradiction_ratio: 40
+
+# If the parsed listing already contains a numeric revenue value,
+# skip running dedicated revenue web search queries (avoids redundant calls).
+skip_revenue_queries_if_listing_has_revenue: true
+
+
+# ── ENRICHMENT FIELD MAPPING ──────────────────────────────────────────────────
+# Maps each enrichment field to its source path(s) in the parsed JSON output.
+# trusted_sources: if set, the field is only used when data comes from that source
+#                  (e.g. "seller_claim"). null = always use when present.
+enrichment_fields:
+  country:
+    paths: ["target.interpreted.country", "search_payload.country"]
+    trusted_sources: null
+  sector:
+    paths: ["target.interpreted.sector", "search_payload.sector"]
+    trusted_sources: null
+  revenue_usd:
+    paths: ["target.interpreted.company_size_indicators.estimated_revenue_usd.value", "search_payload.revenue_usd_approx"]
+    trusted_sources: ["seller_claim"]
+  revenue_raw:
+    paths: ["target.interpreted.company_size_indicators.estimated_revenue_usd.raw", "target.raw.revenue_text"]
+    trusted_sources: ["seller_claim"]
+  employees:
+    paths: ["search_payload.employee_count_approx"]
+    trusted_sources: null
+  headquarters:
+    paths: ["target.raw.location_text"]
+    trusted_sources: null
+
+
+# ── OUTPUT SETTINGS ───────────────────────────────────────────────────────────
+output:
+  quiet: false   # Set to true to suppress non-essential console output
+
+
+# ── API KEYS ──────────────────────────────────────────────────────────────────
+# You can also set these as environment variables instead:
+#   ANTHROPIC_API_KEY | OPENAI_API_KEY | GOOGLE_API_KEY | OPENROUTER_API_KEY
+#   OLLAMA_API_KEY | GROQ_API_KEY | SHODAN_API_KEY | RANSOMWARE_LIVE_API_KEY
+api_keys:
+  anthropic:       ""
+  openai:          ""
+  gemini:          ""
+  ollama:          ""
+  groq:            ""
+  openrouter:      ""
+  shodan:          ""           # Used in Stage 4 (osint_stage.py)
+  ransomware_live: ""       # Used in Stage 4 (osint_stage.py)
