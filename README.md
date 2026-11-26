@@ -1,4 +1,4 @@
-# Dark Web Ransomware Victim Identification Pipeline
+# Dark Web Anonymous Victim Identification Pipeline
 
 This repository contains a Python pipeline for converting unstructured ransomware listing evidence into structured attributes, ranking likely victim companies with repeated LLM judgments, and optionally collecting passive OSINT signals.
 
